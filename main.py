@@ -63,14 +63,14 @@ def get_all_people():
     return people_list
 
 @app.get("/people/{person_id}")
-def show_person(person_id: Annotated[int, Path(title="The ID of the person to get", gt=0, le=1000)]):
+def show_person(person_id: Annotated[int, Path(title="The ID of the person to get", gt=0, le=1000, example=1)]):
     for person in people_list:
         if person.id == person_id:
             return person
     return None
 
 @app.get("/people/")
-def show_person_detail(name: Annotated[str | None, Query(min_length=3, max_length=50)] = None):
+def show_person_detail(name: Annotated[str | None, Query(min_length=3, max_length=50, example="Jane")] = None):
     return name
 
 @app.post("/people")

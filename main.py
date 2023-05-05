@@ -1,7 +1,7 @@
 from typing import Annotated
 from pydantic import BaseModel
 
-from fastapi import FastAPI, Query, Path
+from fastapi import FastAPI, Query, Path, Body
 
 app = FastAPI()
 
@@ -37,5 +37,5 @@ def show_person_detail(name: Annotated[str | None, Query(min_length=3, max_lengt
     return name
 
 @app.post("/people")
-def create_person(person: Person):
+def create_person(person: Annotated[Person, Body(...)]):
     return person

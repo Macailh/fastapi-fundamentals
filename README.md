@@ -1,0 +1,1 @@
+Fastapi fundamentals course of platzi.com

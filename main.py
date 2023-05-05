@@ -1,17 +1,26 @@
 from typing import Annotated
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+from enum import Enum
 
 from fastapi import FastAPI, Query, Path, Body
 
 app = FastAPI()
 
+class HairColor(Enum):
+    white = "white"
+    brown = "brown"
+    black = "black"
+    red = "red"
+    blonde = "blonde"
+
 class Person(BaseModel):
     id: int
-    name: str | None = None
-    last_name: str | None = None
-    age: int | None = None
-    hair_color: str | None = None
-    is_married: bool | None = None
+    name: str = Field(default="Jhon", min_length=1, max_length=50)
+    last_name: str | None = Field(default="Doe", min_length=1, max_length=50)
+    age: int = Field(default=0, ge=0, le=200)
+    hair_color: HairColor
+    is_married: bool = Field(default=False)
 
 people_list = [Person(id=1, name="Salvador", last_name="German", age=23, hair_color="black", is_married=False),
                Person(id=2, name="Adrian", last_name="German", age=21, hair_color="black", is_married=False),
